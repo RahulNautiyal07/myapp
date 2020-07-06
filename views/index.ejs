@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">        
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+        <div class="container">
+        	<div class="row">
+        		<%  if(success!=''){ %>
+        		<div class="alert alert-success">
+                   <strong>Success!</strong><%= success %>.
+                </div>
+                <% } %>
+
+        		<h1>Filter Employee Records</h1>
+        	<div  class="col-md-12" >
+        		<form action="/search/" id="EmployeeForm" class="form-horizontal" method="post" >
+        			
+                <div class="col-md-3" >
+                	<div class="form-group" >
+                		<label for="name" class="col-md-12 control-label" > By Name</label>
+                		<div class="col-md-12" >
+                			<input type="text" class="form-control" name="fltrname" placeholder="Enter The Name ">
+                		</div>
+                	</div>
+                </div>
+                 <div class="col-md-3" >
+                	<div class="form-group" >
+                		<label for="email" class="col-md-12 control-label" > By Email</label>
+                		<div class="col-md-12" >
+                			<input type="email" class="form-control" name="fltremail" placeholder="Enter The Email ">
+                		</div>
+                	</div>
+                </div>
+            
+                 <div class="col-md-3" >
+                	<div class="form-group" >
+                		<label for="name" class="col-md-12 control-label" > By Employee Type</label>
+                		<div class="col-md-12" >
+                			<select class="form-control" name="fltremptype">
+                				<option value="Hourly">Hourly</option>
+                				<option value="Fixed">Fixed</option>
+                			</select>
+                		</div>
+                	</div>
+                </div>
+                      <div class="col-md-3" >
+                	<div class="form-group" >
+                		<label for="name" class="col-md-12 control-label" >Search</label>
+                		<div class="col-md-12" >
+                			<input  type="submit" class="form-control btn btn-primary" name="submit" value="Search">
+                		</div>
+                	</div>
+                </div>
+        		</form>
+        	</div>
+
+
+
+
+        	</div>
+        </div>
+
+  	<div class="container">
+  		<div class="row">
+    <h1><%= title %></h1>
+    <div class="table-responsive">
+     <table class="table table-bordered ">
+     	<thead>
+     		<tr>
+     			<td>Name</td>
+     			<td>Email</td>
+     			<td>Emp Type</td>
+     			<td>Houtly Rate</td>
+     			<td>Total Hours</td>
+     			<td>Total Amount</td>
+     			<td>Action</td>
+     			
+     		</tr>
+     	</thead>
+     	<tbody>
+     		 <% records.forEach(function(row){   %>
+     		<tr>
+     		   <td><%= row.name %></td>
+     		   <td><%= row.email %></td>
+     		   <td><%= row.etype %></td>
+     		   <td><%= row.hourlyrate %></td>
+     		   <td><%= row.totalHour %></td>
+     		   <td><%= row.total %></td>
+               <td> <a class="btn btn-primary btn-xs" href="/edit/<%= row.id %>"><i class="fa fa-edit"></i></a>
+               <a class="btn btn-danger btn-xs" href="/delete/<%= row.id %>"><i class="fa fa-trash"></i></a>   </td>
+
+     		</tr>
+     		<%  }) %>
+     	</tbody>
+
+     </table>
+     </div>
+   </div>
+ </div>
+
+
+<div class="container">
+	<div class="row">
+		<div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3  col-sm-offset-2">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<div class="panel-title">Employee Details Form</div>
+					<div style="float:right; font-size: 85%; position:relative;top:-10px">
+				</div>
+			</div>
+				<div class="panel-body">
+					<form action="/" class="form-horizontal" role="form" method="post">
+
+						<div id="signupalert" style="display: none;" class="alert alert-danger">
+							<p>Error:</p>
+							<span></span>
+						</div>
+
+						<div class="form-group">
+							<label for="name" class="col-md-3 control-label">Name</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" name="uname" placeholder=" Enter Your Name">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="email" class="col-md-3 control-label">Email</label>
+							<div class="col-md-9">
+								<input type="email" class="form-control" name="email" placeholder="Please Enter Your Email">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="emptype" class="col-md-3 control-label">Employee Type</label>
+							<div class="col-md-9">
+								<select class="form-control" name="emptype" >
+									<option value="Hourly">Hourly</option>
+									<option value="Fixed" >Fixed</option>
+									<option>Non</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="hrlyrate" class="col-md-3 control-label">Hourly Rate</label>
+							<div class="col-md-9">
+								<input type="number" class="form-control" name="hrlyrate" placeholder="Enter Hourly rate">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="ttlhr" class="col-md-3 control-label">Total Hour</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" name="ttlhr" placeholder="Please Enter Total Hour">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-offset-3 col-md-9">
+								<input type="Submit" type="button" class="btn btn-info" value="Submit" name=""> 	        	
+							</div>
+				 		</div>
+												
+			    		</form>
+			    	</div>			
+		   </div>		
+	   </div>
+   </div>
+
+  </body>
+</html>
